@@ -30,5 +30,4 @@ public interface Api {
 
     @GET
     Observable<UserExtraInfoResponse> getUserExtraInfo(@Body UserExtraInfoRequest request);
-
 }
