@@ -1,8 +1,11 @@
 package zlc.season.rxjava2demo;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
+import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 import zlc.season.rxjava2demo.entity.LoginRequest;
 import zlc.season.rxjava2demo.entity.LoginResponse;
 import zlc.season.rxjava2demo.entity.RegisterRequest;
@@ -30,4 +33,7 @@ public interface Api {
 
     @GET
     Observable<UserExtraInfoResponse> getUserExtraInfo(@Body UserExtraInfoRequest request);
+
+    @GET("v2/movie/top250")
+    Observable<Response<ResponseBody>> getTop250(@Query("start") int start, @Query("count") int count);
 }

@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import zlc.season.rxjava2demo.demo.ChapterSix;
+import zlc.season.rxjava2demo.demo.RetrofitDemo;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ChapterSix.demo3();
+                RetrofitDemo.demo1(MainActivity.this);
             }
         });
     }

@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * FIXME
  */
 public class RetrofitProvider {
-    private static final String ENDPOINT = "http://example.com/api/";
+    private static final String ENDPOINT = "https://api.douban.com/";
 
     public static Retrofit get() {
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
