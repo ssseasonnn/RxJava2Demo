@@ -30,10 +30,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.start).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ChapterSeven.demo1();
+                ChapterSeven.demo5();
+            }
+        });
+
+        findViewById(R.id.request).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ChapterSeven.request(1);
             }
         });
     }

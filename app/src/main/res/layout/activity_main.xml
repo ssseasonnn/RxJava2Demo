@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -12,11 +11,22 @@
     tools:context="zlc.season.rxjava2demo.MainActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/request"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/start"
+        android:layout_alignStart="@+id/start"
+        android:layout_below="@+id/start"
+        android:layout_marginTop="17dp"
+        android:text="REQUEST" />
+
+    <Button
+        android:id="@+id/start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="BUTTON"/>
+        android:layout_marginTop="91dp"
+        android:text="START" />
 
 </RelativeLayout>
