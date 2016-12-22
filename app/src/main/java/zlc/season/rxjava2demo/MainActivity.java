@@ -4,12 +4,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-
-import java.io.InterruptedIOException;
-
 import io.reactivex.functions.Consumer;
 import io.reactivex.plugins.RxJavaPlugins;
-import zlc.season.rxjava2demo.demo.ChapterSeven;
+import zlc.season.rxjava2demo.demo.ChapterEight;
+
+import java.io.InterruptedIOException;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
@@ -33,14 +32,14 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.start).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ChapterSeven.demo5();
+                ChapterEight.demo6();
             }
         });
 
         findViewById(R.id.request).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ChapterSeven.request(1);
+                ChapterEight.request(128);
             }
         });
     }
