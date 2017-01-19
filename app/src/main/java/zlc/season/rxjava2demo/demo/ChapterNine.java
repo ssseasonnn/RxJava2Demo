@@ -5,6 +5,9 @@ import android.util.Log;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
@@ -144,6 +147,122 @@ public class ChapterNine {
                     @Override
                     public void onComplete() {
                         Log.d(TAG, "onComplete");
+                    }
+                });
+    }
+
+    public static void demo4() {
+        Flowable
+                .create(new FlowableOnSubscribe<Integer>() {
+                    @Override
+                    public void subscribe(FlowableEmitter<Integer> emitter) throws Exception {
+                        Log.d(TAG, "First requested = " + emitter.requested());
+                        boolean flag;
+                        for (int i = 0; ; i++) {
+                            flag = false;
+                            while (emitter.requested() == 0) {
+                                if (!flag) {
+                                    Log.d(TAG, "Oh no! I can't emit value!");
+                                    flag = true;
+                                }
+                            }
+                            emitter.onNext(i);
+                            Log.d(TAG, "emit " + i + " , requested = " + emitter.requested());
+                        }
+                    }
+                }, BackpressureStrategy.ERROR)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Integer>() {
+
+                    @Override
+                    public void onSubscribe(Subscription s) {
+                        Log.d(TAG, "onSubscribe");
+                        mSubscription = s;
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+                        Log.d(TAG, "onNext: " + integer);
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        Log.w(TAG, "onError: ", t);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.d(TAG, "onComplete");
+                    }
+                });
+    }
+
+    public static void main(String[] args) {
+        practice1();
+        try {
+            Thread.sleep(10000000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void practice1() {
+        Flowable
+                .create(new FlowableOnSubscribe<String>() {
+                    @Override
+                    public void subscribe(FlowableEmitter<String> emitter) throws Exception {
+                        try {
+                            FileReader reader = new FileReader("test.txt");
+                            BufferedReader br = new BufferedReader(reader);
+
+                            String str;
+
+                            while ((str = br.readLine()) != null && !emitter.isCancelled()) {
+                                while (emitter.requested() == 0) {
+                                    if (emitter.isCancelled()) {
+                                        break;
+                                    }
+                                }
+                                emitter.onNext(str);
+                            }
+
+                            br.close();
+                            reader.close();
+
+                            emitter.onComplete();
+                        } catch (Exception e) {
+                            emitter.onError(e);
+                        }
+                    }
+                }, BackpressureStrategy.ERROR)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.newThread())
+                .subscribe(new Subscriber<String>() {
+
+                    @Override
+                    public void onSubscribe(Subscription s) {
+                        mSubscription = s;
+                        s.request(1);
+                    }
+
+                    @Override
+                    public void onNext(String string) {
+                        System.out.println(string);
+                        try {
+                            Thread.sleep(2000);
+                            mSubscription.request(1);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                    }
+
+                    @Override
+                    public void onComplete() {
                     }
                 });
     }

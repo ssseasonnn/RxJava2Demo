@@ -33,14 +33,14 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.start).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ChapterNine.demo3();
+                ChapterNine.demo4();
             }
         });
 
         findViewById(R.id.request).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ChapterNine.request(128);
+                ChapterNine.request(96);
             }
         });
     }
