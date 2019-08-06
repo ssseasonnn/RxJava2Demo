@@ -8,10 +8,12 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.http.GET;
 import zlc.season.rxjava2demo.Api;
 import zlc.season.rxjava2demo.RetrofitProvider;
 import zlc.season.rxjava2demo.entity.LoginRequest;
@@ -77,6 +79,7 @@ public class ChapterTwo {
                 Log.d(TAG, "Observable thread is : " + Thread.currentThread().getName());
                 Log.d(TAG, "emit 1");
                 emitter.onNext(1);
+
             }
         });
 
@@ -107,10 +110,9 @@ public class ChapterTwo {
                 })
                 .subscribe(consumer);
     }
-
     public static void practice1(final Context context) {
         Api api = RetrofitProvider.get().create(Api.class);
-        api.login(new LoginRequest())
+        api.login()
                 .subscribeOn(Schedulers.io())               //在IO线程进行网络请求
                 .observeOn(AndroidSchedulers.mainThread())  //回到主线程去处理请求结果
                 .subscribe(new Observer<LoginResponse>() {

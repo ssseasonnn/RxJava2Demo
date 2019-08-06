@@ -22,8 +22,8 @@ import zlc.season.rxjava2demo.entity.UserExtraInfoResponse;
  * FIXME
  */
 public interface Api {
-    @GET
-    Observable<LoginResponse> login(@Body LoginRequest request);
+    @GET("/")
+    Observable<LoginResponse> login();
 
     @GET
     Observable<RegisterResponse> register(@Body RegisterRequest request);

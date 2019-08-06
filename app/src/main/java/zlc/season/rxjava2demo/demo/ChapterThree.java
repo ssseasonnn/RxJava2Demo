@@ -118,7 +118,7 @@ public class ChapterThree {
                 .flatMap(new Function<RegisterResponse, ObservableSource<LoginResponse>>() {
                     @Override
                     public ObservableSource<LoginResponse> apply(RegisterResponse registerResponse) throws Exception {
-                        return api.login(new LoginRequest());
+                        return api.login();
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())  //回到主线程去处理请求登录的结果
